@@ -39,3 +39,46 @@ This app imported different dependencies some of them are given below:
 | Live Data | implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version" |
 | Lifecycle compiler | annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" |
 | Room Database | implementation "androidx.room:room-runtime:$room_version" |
+
+
+### Development
+ This project is built in MVVM pattern. MVVM pattern is shown in flow chart
+ ![alt text](https://www.nexmobility.com/articles/images/mvvm-architecture-pattern.png)
+ 
+ MVVM pattern helps to developer built resuse able code and make much easer to developed app. for implementing this mvvm parttern in project dependencies required to added.
+ 
+ ```sh
+    def lifecycle_version = "2.2.0"
+    def arch_version = "2.1.0"
+    def room_version = "2.2.5"
+   // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    // Annotation processor
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+   //Room database
+    implementation "androidx.room:room-runtime:$room_version"
+    //Room compiler
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+```
+
+[Material Design](https://material.io/) is a visual language that synthesizes the classic principles of good design with the innovation of technology and science. we can implement is by adding dependecies 
+```sh
+     implementation 'com.google.android.material:material:1.2.0-alpha06'
+```
+[CardView](https://developer.android.com/jetpack/androidx/releases/cardview)    implement the Material Design card pattern with round corners and drop shadows.
+dependecies
+```sh
+     implementation "androidx.cardview:cardview:1.0.0"
+```
+## UI of Todo App
+
+
+
+License
+----
+
+cbikas.com.np
+
