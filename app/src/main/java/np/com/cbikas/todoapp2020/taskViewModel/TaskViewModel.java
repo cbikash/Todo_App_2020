@@ -45,7 +45,8 @@ public class TaskViewModel extends AndroidViewModel {
         return allTask;
     }
 
-    public LiveData<List<TodoEntity>> getOldTask() {
+    public LiveData<List<TodoEntity>> getOldTask()
+    {
         return oldTask;
     }
 }

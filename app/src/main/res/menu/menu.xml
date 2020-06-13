@@ -6,9 +6,9 @@
      android:title="@string/about"
      app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/menuSetting"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/Setting"
+    <item android:id="@+id/menudeletAll"
+        android:icon="@drawable/ic_delete"
+        android:title="Delete All Task"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/app_bar_search"

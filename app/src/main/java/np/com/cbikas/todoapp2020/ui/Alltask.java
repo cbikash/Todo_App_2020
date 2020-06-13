@@ -1,13 +1,14 @@
 package np.com.cbikas.todoapp2020.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +31,7 @@ public class Alltask extends Fragment {
 
     private TaskViewModel taskViewModel;
     RecyclerView recyclerView;
+
 
     public Alltask() {
         // Required empty public constructor
@@ -69,6 +71,34 @@ public class Alltask extends Fragment {
 //                Toast.makeText(getActivity(),"AllTask",Toast.LENGTH_SHORT).show();
            }
         });
+
+      new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+              ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+          @Override
+          public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+              return false;
+          }
+
+          @Override
+          public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+              taskViewModel.delete(allTaskAdapter.gettaskAt(viewHolder.getAdapterPosition()));
+           Toast.makeText(getActivity(),"Note Deleted",Toast.LENGTH_SHORT).show();
+          }
+      })
+              .attachToRecyclerView(recyclerView);
+
+      allTaskAdapter.setOnItemClickListener(new AllTaskAdapter.OnItemClickListener() {
+          @Override
+          public void onItemClick(TodoEntity todoEntity) {
+              Intent intent=new Intent(getActivity(), AddEditTask.class);
+              intent.putExtra(AddEditTask.EXTRA_ID,todoEntity.getId());
+              intent.putExtra(AddEditTask.EXTRA_TITLE,todoEntity.getTitle());
+              intent.putExtra(AddEditTask.EXTRA_DESCRIPTION,todoEntity.getDescription());
+              intent.putExtra(AddEditTask.EXTRA_PRIORITY,todoEntity.getPriority());
+              startActivityForResult(intent,MainActivity.EDIT_NOTE_REQUEST);
+          }
+      });
+
 
     }
 

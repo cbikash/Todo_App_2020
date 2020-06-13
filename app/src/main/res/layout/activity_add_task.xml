@@ -5,15 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AddTask">
+    tools:context=".ui.AddEditTask">
 
-    <include
-        android:id="@+id/toolbaradd"
-        layout="@layout/toolbar"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/add_toolbar"
+        app:title=""
+        app:titleTextColor="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <LinearLayout
         android:id="@+id/linerlayout1"
@@ -22,9 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/add_toolbar"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbaradd">
+         >
 
         <LinearLayout
             android:orientation="vertical"
@@ -49,7 +54,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etTitle"
+
                 android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,10 +62,10 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:hint="Enter The Title">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                 <EditText
+                     android:id="@+id/etTitle"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,18 +126,19 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etDescription"
+
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:hint="Enter The Title"
+            android:hint="Enter The Description"
 
             app:boxStrokeColor="@color/colorPrimary">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
+                android:id="@+id/etDescription"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -170,6 +176,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:hint="Choice the date"
+           android:onClick="getDate"
            />
     </LinearLayout>
 
@@ -210,7 +217,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorhigh"
-                android:text="High" />
+                android:text="High"
+
+                />
 
             <RadioButton
                 android:id="@+id/medium"
@@ -233,19 +242,6 @@
 
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/addtodo"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Add Todo"
-        app:icon="@drawable/ic_add"
-        android:onClick="onSavedButtonClicked"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

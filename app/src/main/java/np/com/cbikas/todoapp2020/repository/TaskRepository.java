@@ -45,6 +45,8 @@ public class TaskRepository {
 
     }
 
+
+
     public LiveData<List<TodoEntity>> getAllTask() {
         return allTask;
     }
@@ -56,6 +58,7 @@ public class TaskRepository {
     public LiveData<List<TodoEntity>> getOldTask() {
         return oldTask;
     }
+
 
     private static class InsertTaskAsyncTask extends AsyncTask<TodoEntity, Void,Void>{
         private TodoDao todoDao;
@@ -71,6 +74,8 @@ public class TaskRepository {
             return null;
         }
     }
+
+
   private static class UpdateTaskAsyncTask extends AsyncTask<TodoEntity, Void,Void>{
 
         private TodoDao todoDao;
@@ -112,10 +117,11 @@ public class TaskRepository {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            todoDao.loadAllTodo();
+            todoDao.deleteAllTask();
             return null;
         }
     }
+
 
 
 

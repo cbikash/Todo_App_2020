@@ -17,13 +17,14 @@ import np.com.cbikas.todoapp2020.R;
 import np.com.cbikas.todoapp2020.data.TodoEntity;
 
 public class AllTaskAdapter extends RecyclerView.Adapter<AllTaskAdapter.AlltaskHolder> {
-    private List<TodoEntity> todoEntities=new ArrayList<>();
+    private List<TodoEntity> todoEntities = new ArrayList<>();
+    private OnItemClickListener listener;
 
 
     @NonNull
     @Override
     public AlltaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView= LayoutInflater.from(parent.getContext())
+        View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.all_task_item, parent, false);
 
         return new AlltaskHolder(itemView);
@@ -31,19 +32,19 @@ public class AllTaskAdapter extends RecyclerView.Adapter<AllTaskAdapter.AlltaskH
 
     @Override
     public void onBindViewHolder(@NonNull AlltaskHolder holder, int position) {
-        TodoEntity currentTask=todoEntities.get(position);
+        TodoEntity currentTask = todoEntities.get(position);
         holder.textViewTitle.setText(currentTask.getTitle());
 
-        if(currentTask.getPriority() == 1){
+        if (currentTask.getPriority() == 1) {
             holder.textViewPriority.setText("Low");
             holder.textViewPriority.setTextColor(Color.rgb(0, 255, 0));
-        }else if(currentTask.getPriority() == 2){
+        } else if (currentTask.getPriority() == 2) {
             holder.textViewPriority.setText("Medium");
             holder.textViewPriority.setTextColor(Color.rgb(255, 251, 0));
-        }else if(currentTask.getPriority() == 3){
+        } else if (currentTask.getPriority() == 3) {
             holder.textViewPriority.setText("High");
             holder.textViewPriority.setTextColor(Color.rgb(255, 0, 0));
-        }else{
+        } else {
             holder.textViewPriority.setText("Normal");
 
         }
@@ -55,9 +56,14 @@ public class AllTaskAdapter extends RecyclerView.Adapter<AllTaskAdapter.AlltaskH
     public int getItemCount() {
         return todoEntities.size();
     }
-    public void setTask(List<TodoEntity> todoEntities){
-        this.todoEntities=todoEntities;
+
+    public void setTask(List<TodoEntity> todoEntities) {
+        this.todoEntities = todoEntities;
         notifyDataSetChanged();
+    }
+
+    public TodoEntity gettaskAt(int position) {
+        return todoEntities.get(position);
     }
 
     class AlltaskHolder extends RecyclerView.ViewHolder {
@@ -68,13 +74,30 @@ public class AllTaskAdapter extends RecyclerView.Adapter<AllTaskAdapter.AlltaskH
 
         public AlltaskHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle=itemView.findViewById(R.id.text_view_title);
-            textViewDescription=itemView.findViewById(R.id.text_view_description);
-            textViewPriority =itemView.findViewById(R.id.text_view_priority);
-            textViewDate=itemView.findViewById(R.id.text_view_date);
+            textViewTitle = itemView.findViewById(R.id.text_view_title);
+            textViewDescription = itemView.findViewById(R.id.text_view_description);
+            textViewPriority = itemView.findViewById(R.id.text_view_priority);
+            textViewDate = itemView.findViewById(R.id.text_view_date);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(todoEntities.get(position));
+                    }
 
+                }
+            });
 
 
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(TodoEntity todoEntity);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

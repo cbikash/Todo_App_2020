@@ -23,7 +23,7 @@ public interface TodoDao {
     @Delete
     void delete(TodoEntity todoEntity);
 
-    @Query("Delete from todo_task")
+    @Query("DELETE FROM todo_task")
     void deleteAllTask();
 
     @Query("Select * from todo_task order by priority")

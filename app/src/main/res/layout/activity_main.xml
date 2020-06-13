@@ -12,23 +12,27 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
         <androidx.appcompat.widget.Toolbar
-               android:id="@+id/mytoolbar"
+               android:id="@+id/mytoolbar1"
                android:elevation="4dp"
+
                app:titleTextColor="@color/colorWhite"
                android:layout_width="match_parent"
                android:layout_height="?attr/actionBarSize"
                android:background="@color/colorPrimary"
                app:layout_scrollFlags="scroll|enterAlways"
                app:popupTheme="@style/Theme.AppCompat.Light" >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:src="@drawable/todo" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Todo Tasks"
+                android:text="Todo App"
                 android:textColor="@color/colorWhite"
-                android:textSize="25dp"
-                android:layout_gravity="center"
-                android:id="@+id/toolbar_title" />
-
+                android:textSize="20sp" />
         </androidx.appcompat.widget.Toolbar>
 
              <com.google.android.material.tabs.TabLayout
