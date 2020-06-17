@@ -77,8 +77,7 @@ dependecies
  UI of App was given below
 
 ![Test Image 1](front_page.png)
-![Test Image 2](editpage.png)
-![Test Image 3](add.png)
+[Image edit](https://github.com/Bikas001/Todo_App_2020/raw/master/editpage.png) , [image Add](https://github.com/Bikas001/Todo_App_2020/raw/master/add.png)
 
 License
 ----
