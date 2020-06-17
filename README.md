@@ -74,8 +74,11 @@ dependecies
      implementation "androidx.cardview:cardview:1.0.0"
 ```
 ## UI of Todo App
+ UI of App was given below
 
-
+![Test Image 1](front.png)
+![Test Image 2](editpage.png)
+![Test Image 3](add.png)
 
 License
 ----
