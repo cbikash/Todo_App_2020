@@ -18,13 +18,20 @@ public class TaskRepository {
     private LiveData<List<TodoEntity>> allTask;
     private LiveData<List<TodoEntity>> oldTask;
     private LiveData<List<TodoEntity>> newTask;
+    private LiveData<List<TodoEntity>> allTasktitle;
+    private LiveData<List<TodoEntity>> allTaskdate;
+    private LiveData<List<TodoEntity>> allTaskdescription;
 
     public TaskRepository(Application application){
         TaskDatabase database= TaskDatabase.getInstance(application);
         todoDao =database.todoDao();
-        allTask =todoDao.loadOldTask();
+        allTask =todoDao.loadAllTodo();
+        allTasktitle =todoDao.loadAllTodotitle();
+        allTaskdate =todoDao.loadAllTodoupdate_date();
+        allTaskdescription =todoDao.loadAllTododescription();
         oldTask=todoDao.loadOldTask();
         newTask=todoDao.loadUpcomingTask();
+
 
     }
 
@@ -49,6 +56,15 @@ public class TaskRepository {
 
     public LiveData<List<TodoEntity>> getAllTask() {
         return allTask;
+    }
+    public LiveData<List<TodoEntity>> getAllTasktitle() {
+        return allTasktitle;
+    }
+    public LiveData<List<TodoEntity>> getAllTaskdate() {
+        return allTaskdate;
+    }
+    public LiveData<List<TodoEntity>> getAllTaskdescription() {
+        return allTaskdescription;
     }
 
     public LiveData<List<TodoEntity>> getNewTask() {

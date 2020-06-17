@@ -1,16 +1,24 @@
-package np.com.cbikas.todoapp2020.ui;
+package np.com.cbikas.todoapp2020.ui.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+
+import android.widget.SearchView;
 import android.widget.Toast;
 
 
@@ -21,13 +29,21 @@ import com.google.android.material.tabs.TabLayout;
 import np.com.cbikas.todoapp2020.R;
 import np.com.cbikas.todoapp2020.data.TodoEntity;
 import np.com.cbikas.todoapp2020.taskViewModel.TaskViewModel;
+import np.com.cbikas.todoapp2020.ui.fragmentes.Alltask;
+import np.com.cbikas.todoapp2020.ui.fragmentes.Don;
+import np.com.cbikas.todoapp2020.ui.fragmentes.NotDoneyet;
+import np.com.cbikas.todoapp2020.ui.view_pager_adapter.ViewPagerAdaptor;
+import np.com.cbikas.todoapp2020.ui.recycle_view_adapter.AllTaskAdapter;
 
 import androidx.appcompat.widget.Toolbar;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
-    private Toolbar toolbar1;
+public class MainActivity extends AppCompatActivity{
+     Toolbar toolbar1;
+    private EditText todaydate;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FloatingActionButton addtask;
@@ -87,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         bottomAppBar=findViewById(R.id.bottomAppBar);
         setSupportActionBar(bottomAppBar);
 
-
     }
 
 
@@ -96,11 +111,12 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdaptor viewPagerAdaptor=new ViewPagerAdaptor(getSupportFragmentManager());
         viewPagerAdaptor.addFragment(new Alltask(),"All");
-        viewPagerAdaptor.addFragment(new NotDoneyet(),"Past");
-        viewPagerAdaptor.addFragment(new Don(),"Coming");
+
+        viewPagerAdaptor.addFragment(new NotDoneyet(),"Comming");
+
+        viewPagerAdaptor.addFragment(new Don(),"Don");
+
         viewPager.setAdapter(viewPagerAdaptor);
-
-
 
     }
 
@@ -112,14 +128,23 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this,data.getStringExtra(AddEditTask.EXTRA_TITLE)+" ",Toast.LENGTH_LONG).show();
         if(requestCode==ADD_TASK_REQUEST && resultCode == RESULT_OK){
+            Date date2=null;
             String title=data.getStringExtra(AddEditTask.EXTRA_TITLE);
             String description=data.getStringExtra(AddEditTask.EXTRA_DESCRIPTION);
             int priority=data.getIntExtra(AddEditTask.EXTRA_PRIORITY,1);
-            Date date=new Date();
+            String date1=data.getStringExtra(AddEditTask.EXTRA_DATE);
 
 
-            Toast.makeText(this,title+""+description+""+priority+""+date,Toast.LENGTH_LONG).show();
-           TodoEntity todoEntity=new TodoEntity(title,description,priority,date);
+            SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
+
+            try {
+                date2=formatter1.parse(date1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            //Toast.makeText(this,title+""+description+""+priority+""+date2,Toast.LENGTH_LONG).show();
+           TodoEntity todoEntity=new TodoEntity(title,description,priority,date2);
             taskViewModel.insert(todoEntity);
             Toast.makeText(this,"Task Insert",Toast.LENGTH_SHORT).show();
 
@@ -132,46 +157,90 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Note cant be updated", Toast.LENGTH_SHORT).show();
             return;
             }
-
+            Date date2 =null;
             String title=data.getStringExtra(AddEditTask.EXTRA_TITLE);
             String description=data.getStringExtra(AddEditTask.EXTRA_DESCRIPTION);
             int priority=data.getIntExtra(AddEditTask.EXTRA_PRIORITY,1);
-            Date date=new Date();
+            String date1=data.getStringExtra(AddEditTask.EXTRA_DATE);
+            SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
 
+            try {
+                date2=formatter1.parse(date1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-            TodoEntity todoEntity=new TodoEntity(title,description,priority,date);
+            TodoEntity todoEntity=new TodoEntity(title,description,priority,date2);
             todoEntity.setId(id);
             taskViewModel.update(todoEntity);
             Toast.makeText(this,"Task Updated",Toast.LENGTH_SHORT).show();
 
         }else
         {
-            //Toast.makeText(this,"Note Not saved",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Note Not saved",Toast.LENGTH_SHORT).show();
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater= getMenuInflater();
-        menuInflater.inflate(R.menu.menu,menu);
-        return true;
 
+        menuInflater.inflate(R.menu.menu,menu);
+
+        final AllTaskAdapter allTaskAdapter=new AllTaskAdapter();
+        MenuItem searchItem= menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                allTaskAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-       switch (item.getItemId()){
-           case R.id.menudeletAll:
-               taskViewModel.deleteAllTask();
-               Toast.makeText(this,"All Note Deleted",Toast.LENGTH_SHORT).show();
-               return true;
-           default:
-               return super.onOptionsItemSelected(item);
-       }
+        switch (item.getItemId()){
+            case R.id.menudeletAll:
+                taskViewModel.deleteAllTask();
+                Toast.makeText(this,"All Note Deleted",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menuabout:
+               dilogShow();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    public void dilogShow(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("This App was built for saving you daily routine Task /n" +
+                "To make remember and alert/n" +
+                "Thank you for supporting us");
+        alertDialogBuilder.setNegativeButton("Close",
+                new DialogInterface.OnClickListener() {
+             @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+            }
+        });
 
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
 
     }
+
 }
 
 

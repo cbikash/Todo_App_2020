@@ -1,13 +1,15 @@
-package np.com.cbikas.todoapp2020.ui;
+package np.com.cbikas.todoapp2020.ui.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,9 +33,9 @@ import np.com.cbikas.todoapp2020.R;
 
 public class AddEditTask extends AppCompatActivity {
     Toolbar toolbar;
-    private EditText datepiker;
+
     DatePickerDialog datePickerDialog;
-    private EditText edittitle, editdescription;
+    private EditText edittitle, editdescription,updateDate;
     private RadioGroup editradioGroup;
     private RadioButton edithigh, editmedium, editlow;
     private Button submit;
@@ -53,15 +55,15 @@ public class AddEditTask extends AppCompatActivity {
         edittitle = findViewById(R.id.etTitle);
         editdescription = findViewById(R.id.etDescription);
         editradioGroup = findViewById(R.id.radiogroup);
-        datepiker=findViewById(R.id.datepiker);
+        updateDate=findViewById(R.id.edit_text_date);
         toolbar=findViewById(R.id.add_toolbar);
         editlow=findViewById(R.id.low);
         edithigh=findViewById(R.id.high);
         editmedium=findViewById(R.id.medium);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+       getSupportActionBar().setDisplayShowHomeEnabled(true);
+       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
          Intent intent=getIntent();
          edithigh.setChecked(true);
          if(intent.hasExtra(EXTRA_ID)){
@@ -77,6 +79,7 @@ public class AddEditTask extends AppCompatActivity {
              }else if(p == 3){
                  edithigh.setChecked(true);
              }
+             updateDate.setText(intent.getStringExtra(EXTRA_DATE));
            Toast.makeText(this,"id "+intent.getIntExtra(EXTRA_ID,-1),Toast.LENGTH_LONG);
 
 
@@ -94,6 +97,7 @@ public class AddEditTask extends AppCompatActivity {
 
         String title = edittitle.getText().toString();
         String description=editdescription.getText().toString();
+        String date=updateDate.getText().toString();
         int priority1;
         int checkedId = ((RadioGroup) findViewById(R.id.radiogroup)).getCheckedRadioButtonId();
         switch (checkedId){
@@ -115,10 +119,14 @@ public class AddEditTask extends AppCompatActivity {
             Toast.makeText(this,"Please insert a title and description",Toast.LENGTH_SHORT).show();;
             return;
         }
+        Toast.makeText(this, ""+date, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, ""+title, Toast.LENGTH_SHORT).show();
 
+        Log.i("a",date);
         Intent data=new Intent();
         data.putExtra(EXTRA_TITLE,title);
         data.putExtra(EXTRA_DESCRIPTION,description);
+        data.putExtra(EXTRA_DATE,date);
         data.putExtra(EXTRA_PRIORITY,priority1);
 
         int id = getIntent().getIntExtra(EXTRA_ID,-1);
@@ -131,25 +139,26 @@ public class AddEditTask extends AppCompatActivity {
 
     }
 
-    public Date getDate(View view) {
-       final Calendar calendar=Calendar.getInstance();
+    public void getDate(View view) {
+
+        Calendar calendar=Calendar.getInstance();
        int YEAR =calendar.get(Calendar.YEAR);
        int MONTH =calendar.get(Calendar.MONTH);
-       int DATE=calendar.get(Calendar.DATE);
-       final Date date12;
+       int DAY=calendar.get(Calendar.DAY_OF_MONTH);
+
        DatePickerDialog datePickerDialog=new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
            @Override
            public void onDateSet(DatePicker datePicker, int year, int month, int date) {
 
-               int year1=year;
-               int month1 =month;
-               int date1=date;
+             String    currentdateString= (date+"/"+(month+1)+"/"+year);
+//               Date currentdate = new Date(year1, month1, date1);
+//               String currentdateString = DateFormat.format("yyyy.MM.dd", currentdate).toString();
+                 updateDate.setText(currentdateString);
 
            }
-       },YEAR,MONTH,DATE);
+       },YEAR,MONTH,DAY);
        datePickerDialog.show();
 
-  return null;
     }
 
     @Override
@@ -165,10 +174,14 @@ public class AddEditTask extends AppCompatActivity {
             case R.id.save_task:
                 saveTask();
                 return true;
+            case R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
 
         }
 
     }
+
 }

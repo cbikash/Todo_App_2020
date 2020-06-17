@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".ui.Splash.SplashScreen">
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/todo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Store your Task"
+        android:layout_below="@+id/img"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="40sp"
+        android:layout_centerHorizontal="true"
+        />
+
+
+</RelativeLayout>

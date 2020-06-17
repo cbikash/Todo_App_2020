@@ -1,4 +1,4 @@
-package np.com.cbikas.todoapp2020.ui;
+package np.com.cbikas.todoapp2020.ui.view_pager_adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ViewPagerAdaptor extends FragmentPagerAdapter {
 
-    private final ArrayList<Fragment> fragmentslist=new ArrayList<>();
+    private final  ArrayList<Fragment> fragmentslist=new ArrayList<>();
     private final ArrayList<String> fragmentTitle = new ArrayList<>();
 
     public ViewPagerAdaptor(FragmentManager fm) {
@@ -38,7 +38,9 @@ public class ViewPagerAdaptor extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return fragmentTitle.get(position);
+
+            return  fragmentTitle.get(position);
+
     }
 }
 

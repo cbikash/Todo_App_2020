@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+     <item android:id="@+id/alltask_m"
+         android:title="Filter By Priority"
+        app:showAsAction="never"/>
+     <item android:id="@+id/alltitletask_m"
+        android:title="Filter by Title"
+        app:showAsAction="never"/>
+     <item android:id="@+id/alldestask_m"
+        android:title="Filter by Description"
+        app:showAsAction="never"/>
+    <item android:id="@+id/alldatetask_m"
+        android:title="Filter By Date"
+        app:showAsAction="never"/>
+    <item android:id="@+id/alltaskd_m"
+        android:title="Default"
+        app:showAsAction="never"/>
+</menu>

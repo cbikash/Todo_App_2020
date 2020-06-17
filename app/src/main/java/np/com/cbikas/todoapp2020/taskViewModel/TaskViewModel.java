@@ -14,6 +14,9 @@ import np.com.cbikas.todoapp2020.repository.TaskRepository;
 public class TaskViewModel extends AndroidViewModel {
     private TaskRepository repository;
     private LiveData<List<TodoEntity>> allTask;
+    private LiveData<List<TodoEntity>> allTasktitle;
+    private LiveData<List<TodoEntity>> allTaskdate;
+    private LiveData<List<TodoEntity>> allTaskdescription;
     private LiveData<List<TodoEntity>> newTask;
     private LiveData<List<TodoEntity>> oldTask;
 
@@ -23,6 +26,9 @@ public class TaskViewModel extends AndroidViewModel {
         allTask = repository.getAllTask();
         oldTask=repository.getOldTask();
         newTask=repository.getNewTask();
+        allTasktitle=repository.getAllTasktitle();
+        allTaskdate=repository.getAllTaskdate();
+        allTaskdescription= repository.getAllTaskdescription();
     }
     public void insert(TodoEntity todoEntity){
         repository.insert(todoEntity);
@@ -44,6 +50,18 @@ public class TaskViewModel extends AndroidViewModel {
     public LiveData<List<TodoEntity>> getAllTask() {
         return allTask;
     }
+    public LiveData<List<TodoEntity>> getAllTasktitle() {
+        return allTasktitle;
+    }
+
+    public LiveData<List<TodoEntity>> getAllTaskdate() {
+        return allTaskdate;
+    }
+
+    public LiveData<List<TodoEntity>> getAllTaskdescription() {
+        return allTaskdescription;
+    }
+
 
     public LiveData<List<TodoEntity>> getOldTask()
     {

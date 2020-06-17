@@ -12,16 +12,15 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
         <androidx.appcompat.widget.Toolbar
-               android:id="@+id/mytoolbar1"
-               android:elevation="4dp"
-               app:titleTextColor="@color/colorWhite"
-               android:layout_width="match_parent"
-               android:layout_height="?attr/actionBarSize"
-               android:background="@color/colorPrimary"
-               app:layout_scrollFlags="scroll|enterAlways"
-               app:popupTheme="@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen"
+            android:id="@+id/mytoolbar1"
+            android:elevation="4dp"
 
-            >
+            app:titleTextColor="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/Theme.AppCompat.Light" >
 
             <ImageView
                 android:layout_width="50dp"
@@ -34,18 +33,17 @@
                 android:text="Todo App"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
-
-
         </androidx.appcompat.widget.Toolbar>
 
-             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tablayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/colorAccent"
-                app:tabMode="fixed"
-                app:tabGravity="fill"
-                />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabMode="auto"
+            app:tabGravity="fill"
+            android:layout_weight="1"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -60,12 +58,13 @@
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         app:menu="@menu/menu"
-         app:fabAlignmentMode="end"
+        app:menu="@menu/menu"
+        app:fabAlignmentMode="center"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabCradleMargin="2dp"
         app:hideOnScroll="true"
         android:layout_gravity="bottom"
+        app:navigationIcon="@drawable/ic_menu"
         android:backgroundTint="@color/colorPrimary"
         />
     <com.google.android.material.floatingactionbutton.FloatingActionButton

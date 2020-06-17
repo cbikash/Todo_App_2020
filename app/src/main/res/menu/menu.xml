@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
- <item android:id="@+id/menuabout"
+
+   <item android:id="@+id/menuabout"
      android:icon="@drawable/ic_info"
      android:title="@string/about"
      app:showAsAction="ifRoom" />
@@ -10,11 +11,13 @@
         android:icon="@drawable/ic_delete"
         android:title="Delete All Task"
         app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/app_bar_search"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
+
 
 </menu>
