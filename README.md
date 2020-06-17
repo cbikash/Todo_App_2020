@@ -76,7 +76,7 @@ dependecies
 ## UI of Todo App
  UI of App was given below
 
-![Test Image 1](front.png)
+![Test Image 1](front_page.png)
 ![Test Image 2](editpage.png)
 ![Test Image 3](add.png)
 
